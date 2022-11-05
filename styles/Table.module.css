@@ -1,0 +1,32 @@
+.table {
+    overflow-x: auto;
+    font-size: 12px;
+    margin: 20px;
+    box-shadow: 0 0 5px grey;
+    border-radius: 5px;
+    display: block;
+}
+.cell {
+    border: 0.5px dotted grey;
+    font-size: 20px;
+    cursor: pointer;
+}
+.cell:hover,
+.cell:focus{
+    background-color: var(--highlight-color)
+}
+
+@media (min-width: 650px){
+
+.table {
+    align-self:center;
+    width: 80%;
+}
+.head {
+    font-size:22px;
+    border-bottom: 0.5px solid black ;
+    text-align: center;
+    max-width: 100px;
+}
+
+}

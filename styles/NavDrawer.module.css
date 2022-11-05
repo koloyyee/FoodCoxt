@@ -1,0 +1,53 @@
+.link {
+    font-size: 18px;
+}
+.nav {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    box-shadow: 1px 0 4px -2px grey;
+    z-index: 2;
+    background-color: white;
+}
+.ul {
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding:0;
+}
+
+.span {
+    display: none;
+}
+
+@media (min-width: 650px) {
+    .nav{
+        position: sticky;
+        width: 100%;
+        margin:0;
+        background-color: white;
+    }
+    .ul {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        height: 50%;
+    
+    }
+    .link {
+        width: 150px;
+    }
+}
+@media (min-width: 1000px){
+    .span {
+        display: inline-block;
+        padding-left: 10px;
+    }
+    .link:hover,
+    .link:focus {
+        display: inline-block;
+        color:red;
+    }
+ 
+    
+}

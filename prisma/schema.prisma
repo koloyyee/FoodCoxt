@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// add type material vs product
+model Ingredient {
+  id Int @id @default(autoincrement())
+  code  String @db.VarChar(255) //add unique
+  name String @db.VarChar(255)
+  packingSize String @db.VarChar(255)
+  price Float
+  quantity Int
+  unit Unit @relation(fields:[unitId], references: [id])
+  unitId Int
+  category Category @relation(fields:[categoryId], references: [id])
+  categoryId Int
+  supplier Supplier @relation(fields:[supplierId], references: [id])
+  supplierId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  recipe IngredientOnRecipe[]
+}
+
+model Unit {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255) 
+  ingredient Ingredient[]
+}
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255) 
+  ingredient Ingredient[]
+}
+model Supplier {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255) 
+  email String? @unique
+  phone String? @unique
+  ingredient Ingredient[]
+}
+
+model IngredientOnRecipe {
+  ingrdient Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  recipe Recipe @relation(fields:[recipeId], references: [id])
+  recipeId Int
+    quantity Float
+  @@id([ingredientId,recipeId ])
+}
+
+model Recipe {
+  id Int @id @default(autoincrement())
+  name String
+  method String
+  totalInput Float
+  totalOutput Float
+  yield Float
+  servingsNumber Int
+  servingQuantity Int
+  totalCost Float
+  pricePerUnit  Float
+  pricePerServing Float
+  ingredient IngredientOnRecipe[]
+
+}

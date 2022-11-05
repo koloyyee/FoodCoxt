@@ -1,0 +1,70 @@
+.button {
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 120px;
+    height:40px;
+    margin-block: 1em;
+    border:none;
+    transition: all 100ms ease;
+    font-size: 16px;
+}
+.button:hover,
+.button:focus {
+    background-color: var(--primary-color);
+    color: var(--secondary-font);
+}
+
+
+.addButton {
+    background-color: var(--primary-color);
+    border:none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-font);
+    height: 60px;
+    width: 60px;
+    font-size: 30px;
+
+    align-self: end;
+    margin-right: 25px;
+}
+
+.backButton {
+    align-self: center;
+    margin-bottom: 100px;
+    width: 130px;
+}
+
+.back{
+    margin-bottom: 100px;
+}
+
+
+@media (min-width: 1000px) {
+    .addButton {
+    margin-right: 150px;
+     
+    }
+}
+@media (min-width: 650px) {
+    .addButton {
+        margin-right: 150px;
+        height: 45px;
+        width: 45px;
+        font-size: 18px;
+        }
+    .button {
+        align-self: baseline;
+        grid-column: 3;
+    }
+
+    .back{
+        align-self: flex-end;
+        margin-right: 30px;
+    }
+}
+
