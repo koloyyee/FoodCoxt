@@ -30,7 +30,7 @@
     font-size: 30px;
 
     align-self: end;
-    margin-right: 25px;
+
 }
 
 .backButton {
@@ -44,18 +44,19 @@
 }
 
 
-@media (min-width: 1000px) {
+@media (min-width: 800px) {
     .addButton {
-    margin-right: 150px;
      
     }
 }
-@media (min-width: 650px) {
+@media (min-width: 400px) {
     .addButton {
-        margin-right: 150px;
         height: 45px;
         width: 45px;
         font-size: 18px;
+        position: fixed;
+        bottom: 2%;
+        right: 5%;
         }
     .button {
         align-self: baseline;

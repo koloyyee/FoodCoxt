@@ -1,13 +1,16 @@
-
-const GlobalFilter = (
-    {filter, setFilter}: {filter: string, setFilter:(value:any)=>void}) => {
+import {GlobalFilterInterface} from '../interfaces/filter.interface';
+import DebounceInput from './DebounceInput';
+const GlobalFilter = ({
+  value,
+  onChange,
+}:GlobalFilterInterface) => {
   return (
-    <span>
-        Search: {' '}
-      <input
-        value = {filter || ''}
-        onChange={(e)=> setFilter(e.target.value)} />
-    </span>
+    <DebounceInput
+      extraClass='global'
+      value={value ?? ''}
+      onChange={onChange}
+      placeholder="Search"
+    />
   );
 };
 

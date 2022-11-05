@@ -1,6 +1,6 @@
 import React from 'react';
 import {TableFilterInterface} from '../interfaces/global.interface';
-import styles from '../styles/Filter.module.css';
+import styles from '../styles/Input.module.css';
 import DebounceInput from './DebounceInput';
 
 const Filter:React.FC<TableFilterInterface> =

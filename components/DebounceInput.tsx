@@ -1,11 +1,12 @@
 import React from 'react';
 import {DebounceInputInterface} from '../interfaces/global.interface';
-import styles from '../styles/DebounceInput.module.css';
+import styles from '../styles/Input.module.css';
 
 const DebounceInput:React.FC<DebounceInputInterface> =
 ({value: initialValue,
   onChange,
   debounce = 500,
+  extraClass,
   ...props
 } :
     DebounceInputInterface
@@ -25,7 +26,7 @@ const DebounceInput:React.FC<DebounceInputInterface> =
 
   return (
     <input
-      className={styles.input}
+      className={`${styles.input} ${styles[extraClass!]}`}
       {...props}
       value ={value} onChange={(e)=>setValue(e.target.value)} />
   );

@@ -20,7 +20,7 @@
     display: none;
 }
 
-@media (min-width: 650px) {
+@media (min-width: 400px) {
     .nav{
         position: sticky;
         width: 100%;
@@ -38,7 +38,7 @@
         width: 150px;
     }
 }
-@media (min-width: 1000px){
+@media (min-width: 800px){
     .span {
         display: inline-block;
         padding-left: 10px;

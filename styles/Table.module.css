@@ -16,11 +16,12 @@
     background-color: var(--highlight-color)
 }
 
-@media (min-width: 650px){
+@media (min-width: 400px){
 
 .table {
     align-self:center;
-    width: 80%;
+    width: 95%;
+    margin: 20px 0px 100px;
 }
 .head {
     font-size:22px;

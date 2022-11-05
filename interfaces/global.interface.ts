@@ -8,6 +8,7 @@ export interface DebounceInputInterface {
     value: string | number
     onChange: (value: string|number )=> void
     debounce?: number
+    extraClass?: string
 }
 export interface TableFilterInterface {
 

@@ -12,8 +12,8 @@ import {GetStaticProps} from 'next/types';
 import React from 'react';
 import {FiArrowDown, FiArrowUp} from 'react-icons/fi';
 import AddButton from '../../components/AddButton';
-import DebounceInput from '../../components/DebounceInput';
 import Filter from '../../components/Filter';
+import GlobalFilter from '../../components/GlobalFilter';
 import NavDrawer from '../../components/NavDrawer';
 import {IngredientsInterface} from '../../interfaces/ingredient.interface';
 import prisma from '../../lib/prisma';
@@ -74,16 +74,12 @@ const Ingredients = ( {ingredients}:{ingredients:IngredientsInterface[]}) => {
     },
   ], []);
 
-  const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  const includeFilter: FilterFn<any> = (row, columnId, value) => {
     // Rank the item
-    const search = String(value).toLowerCase();
+    const searchValue = String(value).toLowerCase();
     const column = String(row.getValue<string>(columnId));
-    return column.toLowerCase().includes(search);
 
-    // Store the itemRank info
-    // addMeta({
-    //   itemRank,
-    // })
+    return column.toLowerCase().includes(searchValue);
   };
 
   const table = useReactTable({
@@ -100,7 +96,7 @@ const Ingredients = ( {ingredients}:{ingredients:IngredientsInterface[]}) => {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: fuzzyFilter,
+    globalFilterFn: includeFilter,
 
   });
 
@@ -111,21 +107,19 @@ const Ingredients = ( {ingredients}:{ingredients:IngredientsInterface[]}) => {
   return (
     <div className='main'>
       <NavDrawer/>
-      <div>
-        <DebounceInput
-          value={globalFilter ?? ''}
-          onChange={(value) => setGlobalFilter(String(value))}
-          placeholder="Search all columns..."
-        />
+      <div className="container">
 
-      </div>
-      <table className={styles.table}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup)=>(
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) =>(
-                <th className={styles.head} key={header.id}>
-                  {header.isPlaceholder?
+        <GlobalFilter
+          value={globalFilter}
+          onChange={(value)=>setGlobalFilter(String(value))} />
+
+        <table className={styles.table}>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup)=>(
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) =>(
+                  <th className={styles.head} key={header.id}>
+                    {header.isPlaceholder?
                     null:(
                       <>
                         <div {...{
@@ -147,32 +141,34 @@ const Ingredients = ( {ingredients}:{ingredients:IngredientsInterface[]}) => {
                       ): null}
                       </>
                     )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
 
-        <tbody>
-          {table.getRowModel().rows.map((row)=>(
+          <tbody>
+            {table.getRowModel().rows.map((row)=>(
 
-            <tr className={styles.tr} onClick={()=>
-              rowLinkHandler(`/ingredients/${row.original.id}`)} key={row.id}>
+              <tr className={styles.tr} onClick={()=>
+                rowLinkHandler(`/ingredients/${row.original.id}`)} key={row.id}>
 
-              {row.getVisibleCells().map((cell)=>(
+                {row.getVisibleCells().map((cell)=>(
 
 
-                <td className={styles.cell} key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell,
-                      cell.getContext())}
-                </td>
-              ))}
-            </tr>
+                  <td className={styles.cell} key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell,
+                        cell.getContext())}
+                  </td>
+                ))}
+              </tr>
 
-          ))}
-        </tbody>
-      </table>
-      <AddButton destination='/ingredients/create'/>
+            ))}
+          </tbody>
+        </table>
+        <AddButton destination='/ingredients/create'/>
+      </div>
+
     </div>
   );
 };

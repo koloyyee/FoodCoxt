@@ -1,0 +1,51 @@
+.numRange {
+    display:flex;
+}
+.input {
+    width: 100%;
+}
+.global {
+    transition: all ease-in-out 200ms;
+    border-radius: 5px;
+    outline: none;
+    border:none;
+    border: 1px solid var(--primary-font);
+    order:3;
+    position:fixed;
+    height:3%;
+    bottom: 8%;
+}
+.global:hover,
+.global:focus{
+    height: 5%;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 0 3px var(--primary-font);
+}
+
+@media (min-width:800px) {
+    .global{
+        order: 1;
+        width: 10%;
+        bottom: 5%;
+        right: 12%;
+    }
+    .global:hover,
+    .global:focus {
+    width: 15%;
+    height: 10%;
+    bottom: 3%;
+    }
+}
+@media (min-width:400px) {
+    .global{
+        order: -1;
+        height: 5%;
+        width: 10%;
+    }
+    .global:hover,
+    .global:focus {
+    width: 15%;
+    
+    }
+}
