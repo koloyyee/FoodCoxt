@@ -6,6 +6,7 @@ export interface IngredientsInterface {
     price: number
     quantity: number
     unit:{name: string}
+    type:{name: string}
     category: {name: string}
     supplier: {name: string}
 };

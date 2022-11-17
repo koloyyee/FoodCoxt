@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
 import {default as styles} from '../styles/Card.module.css';
 import Button from './Button';
-import NavDrawer from './NavDrawer';
 
 /**
  *
@@ -24,12 +23,13 @@ function PricePerUnit({price, quantity}:{
   );
 }
 
-const ItemCard = (
-    {ingredient, units, suppliers, categories, isNew} :
+const IngredientCard = (
+    {ingredient, units, suppliers, categories, types, isNew} :
     {ingredient:IngredientsInterface,
       units:IngredientsInterface['unit'][],
       suppliers:IngredientsInterface['supplier'][]
       categories:IngredientsInterface['category'][]
+      types:IngredientsInterface['type'][]
       isNew: boolean // is this a new ingredient?
     },
 ) => {
@@ -57,7 +57,6 @@ const ItemCard = (
     try {
       const body = data;
       const id = body.id;
-      console.log(id);
       await fetch(`/api/ingredients/update/${id}`, {
         method: 'POST',
         headers: {'Content-type': 'application/json'},
@@ -87,9 +86,8 @@ const ItemCard = (
   }
 
   return (
-    <article className='main'>
-      <NavDrawer />
-
+    <article className='section'>
+      {isNew? <h1>Add New Ingredient</h1> : <h1>Update Ingredient</h1>}
       <form className={styles.card}>
         <label htmlFor="code" className={styles.label}>
         Code
@@ -245,6 +243,28 @@ const ItemCard = (
             ))}
           </select>
         </label>
+        <label htmlFor="type" className={styles.label}>
+        Type
+          <select
+            className={styles.input}
+            name="type"
+            id="type"
+            defaultValue={isNew ? '-- select an option --' : data.type.name}
+            onChange={(e)=> setData(
+                {...data,
+                  [e.target.name]: e.target.value},
+            )}
+            disabled={inputDisable}
+            required={true}>
+            <option
+              disabled
+              value='-- select an option --'> -- select an option -- </option>
+            {types.map((type, index) =>(
+
+              <option key={index} value={type.name}>{type.name}</option>
+            ))}
+          </select>
+        </label>
 
         {
           isNew? <Button text='Save' onClick={createForm}/>:
@@ -261,4 +281,4 @@ const ItemCard = (
   );
 };
 
-export default ItemCard;
+export default IngredientCard;

@@ -42,10 +42,18 @@
         order: -1;
         height: 5%;
         width: 10%;
+        position: inherit;
+        margin-top: 2%;
+        align-self: flex-end;
     }
     .global:hover,
     .global:focus {
     width: 15%;
     
     }
+}
+
+.recipe-input {
+    display: grid;
+    
 }

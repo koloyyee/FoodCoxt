@@ -20,14 +20,13 @@
 
 .table {
     align-self:center;
-    width: 95%;
     margin: 20px 0px 100px;
+    width:100%;
 }
 .head {
     font-size:22px;
     border-bottom: 0.5px solid black ;
     text-align: center;
-    max-width: 100px;
 }
 
 }

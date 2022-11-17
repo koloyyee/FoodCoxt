@@ -28,7 +28,7 @@
     height: 60px;
     width: 60px;
     font-size: 30px;
-
+    margin-right:20px;
     align-self: end;
 
 }
@@ -43,20 +43,12 @@
     margin-bottom: 100px;
 }
 
-
-@media (min-width: 800px) {
-    .addButton {
-     
-    }
-}
 @media (min-width: 400px) {
     .addButton {
         height: 45px;
         width: 45px;
         font-size: 18px;
-        position: fixed;
-        bottom: 2%;
-        right: 5%;
+        
         }
     .button {
         align-self: baseline;
@@ -69,3 +61,10 @@
     }
 }
 
+@media (min-width: 800px) {
+    .addButton {
+        position: fixed;
+        bottom: 2%;
+        right: 15%;
+    }
+}

@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "Ingredient" (
     "id" SERIAL NOT NULL,
-    "code" VARCHAR(255) NOT NULL,
+    "code" VARCHAR(255) NOT NULL UNIQUE,
     "name" VARCHAR(255) NOT NULL,
     "packingSize" VARCHAR(255) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,

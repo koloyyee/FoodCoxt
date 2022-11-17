@@ -1,0 +1,62 @@
+/* .tabs {
+    width: 60ch;
+    margin-inline: auto;
+    margin-block: 1rem;
+  } */
+.tabs .tabPanel {
+    display: none;
+    color: var(--primary-font);
+    background: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    min-height: 270px;
+    border: 1px dotted var(--primary-font);
+  }
+  .tabs .tabPanel * {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .tabs .tabPanel > * + * {
+    margin-block-start: 1.5rem; 
+  }
+  .tabs .tabPanel p {
+    line-height: 1.5;
+  }
+  .tabs .tabPanel a:focus {
+    outline: 2px dashed black;
+  }
+   .tabs .tabGroup {
+    display: flex;
+  }
+  .tabs .tab {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .tabs label {
+    cursor: pointer;
+    padding-inline: 3ch;
+    padding-block: 1ch;
+    margin: 0;
+  }
+  .tabs input:checked + label {
+    background: var(--primary-color);
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    color: white;
+  }
+  .tabs input:focus-visible + label {
+    outline: 2px dashed black;
+    outline-offset: -3px; 
+  } 
+  .tabs:has([value='Tab 1']:checked) .tabPanel[data-tab='Tab 1'] {
+    border-top-left-radius: 0;
+    display: block;
+  }
+  .tabs:has([value='Tab 2']:checked) .tabPanel[data-tab='Tab 2'] {
+    display: block;
+  }
+  .tabs:has([value='Tab 3']:checked) .tabPanel[data-tab='Tab 3'] {
+    display: block;
+  }
