@@ -1,8 +1,8 @@
 import {GetStaticProps} from 'next';
-import IngredientCard from '../../components/IngredientCard';
-import NavDrawer from '../../components/NavDrawer';
-import {IngredientsInterface} from '../../interfaces/ingredient.interface';
-import prisma from '../../lib/prisma';
+import IngredientCard from '../components/IngredientCard';
+import NavDrawer from '../components/NavDrawer';
+import {IngredientsInterface} from '../interfaces/ingredient.interface';
+import prisma from '../lib/prisma';
 
 const emptyState: IngredientsInterface ={
   code: '',

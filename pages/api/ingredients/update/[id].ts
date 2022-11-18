@@ -41,7 +41,6 @@ export default async function handle(
       unitId: unit?.id,
     },
   });
-  console.log(body);
-  console.log(result);
+
   res.json(result);
 }

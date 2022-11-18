@@ -1,7 +1,7 @@
 import {GetServerSideProps} from 'next';
-import IngredientCard from '../../components/IngredientCard';
-import {IngredientsInterface} from '../../interfaces/ingredient.interface';
-import prisma from '../../lib/prisma';
+import IngredientCard from '../components/IngredientCard';
+import {IngredientsInterface} from '../interfaces/ingredient.interface';
+import prisma from '../lib/prisma';
 
 const Ingredient= (
     {ingredient, units, suppliers, categories, types}: {
