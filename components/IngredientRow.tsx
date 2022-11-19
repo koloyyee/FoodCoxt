@@ -1,26 +1,23 @@
+/* eslint-disable require-jsdoc */
 import {useEffect, useState} from 'react';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
 import useDebounce from '../useHooks/useDebounce';
+import {emptyState} from './FoodCostCard';
+import InputComboBox from './InputComboBox';
 
 
-const emptyState: IngredientsInterface ={
-  code: '',
-  name: '',
-  packingSize: '',
-  price: 0,
-  quantity: 0,
-  unit: {name: ''},
-  type: {name: ''},
-  category: {name: ''},
-  supplier: {name: ''},
-};
-
-
-const IngredientRow = () => {
+const IngredientRow = ({ingredients, deleteTableRows, units}:
+  { ingredients: IngredientsInterface[],
+    units: IngredientsInterface['unitId'][],
+    deleteTableRows: (index: number) => void,
+}) => {
   const [query, setQuery] = useState('');
+  const [quantity, setQuantity] = useState(0);
+  const [unit, setUnit] = useState('');
+
+  const ingredientsName = ingredients.map((ingredient) => ingredient.name);
   const [ingredient, setIngredient] = useState(emptyState);
   const debounceSearchTerm = useDebounce(query, 500);
-
 
   // eslint-disable-next-line require-jsdoc
   async function searchIngredient(query : string) {
@@ -31,7 +28,6 @@ const IngredientRow = () => {
         body: JSON.stringify(query),
       });
       const result = await res.json();
-      console.log(result);
       return result;
     } catch (e) {
       console.log(e);
@@ -39,27 +35,57 @@ const IngredientRow = () => {
     return;
   }
 
+  function generateUnit(ingredientId: number) {
+    return units.filter((unit)=> unit.id == ingredientId);
+  }
+
   useEffect(()=>{
     if (debounceSearchTerm) {
       searchIngredient(debounceSearchTerm).then( (results) =>{
+        const units = generateUnit(results[0].unitId);
+        setUnit(units[0].name);
         setIngredient(results[0]);
       });
     } else {
-      setIngredient([]);
+      setIngredient(emptyState);
     }
   }, [debounceSearchTerm]);
 
+  function onChange(value: string) {
+    setQuery(value);
+  }
+
+
   return (
-    <label htmlFor="ingredient-search">
-      <input
-        type="text"
-        defaultValue={''}
-        onChange={(e)=> setQuery(e.target.value.trim().toLowerCase())}/>
-      <p>{ingredient.name}</p>
-      <p>{ingredient.price / ingredient.quantity ?
-      ingredient.price / ingredient.quantity :'' }</p>
-    </label>
+    <tr>
+      <td>
+        <InputComboBox
+          list ={ingredientsName} search ={onChange} />
+      </td>
+      <td>
+        <label htmlFor="quantity">
+          <input
+            type="number"
+            defaultValue={0}
+            onChange = {(e)=> setQuantity(Number(e.target.value))}
+          />
+        </label>
+      </td>
+      <td>
+        <p>{unit}</p>
+      </td>
+      <td>
+        <p>{ingredient.price}/{unit}</p>
+      </td>
+      <td>
+        {(ingredient.price / ingredient.quantity)* quantity ?
+    (ingredient.price / ingredient.quantity)* quantity : '' }
+      </td>
+    </tr>
+
+
   );
 };
+
 
 export default IngredientRow;

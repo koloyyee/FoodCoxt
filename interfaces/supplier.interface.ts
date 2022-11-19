@@ -1,5 +1,5 @@
 export interface SupplierInterface {
-    id?: String
+    id?: number
     name: string
     email : string
     phone: string

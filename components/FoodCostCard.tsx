@@ -1,144 +1,74 @@
+/* eslint-disable require-jsdoc */
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {AgGridReact} from 'ag-grid-react';
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
-import styles from '../styles/Card.module.css';
-import Button from './Button';
 import IngredientRow from './IngredientRow';
 
-const emptyState = {
+export const emptyState = {
   code: '',
   name: '',
   packingSize: '',
   quantity: 0,
   price: 0,
-  type: {name: ''},
-  category: {name: ''},
-  unit: {name: ''},
-  supplier: {name: 'Food Factory'},
+  unitId: {id: 0, name: ''},
+  typeId: {id: 0, name: ''},
+  categoryId: {id: 0, name: ''},
+  supplierId: {id: 0, name: 'Food Factory', email: '', phone: ''},
 
 };
 
 const FoodCostCard= (
     {ingredients, units, suppliers, categories, types}:{
         ingredients: IngredientsInterface[]
-        units: IngredientsInterface['unit'][]
-        suppliers: IngredientsInterface['supplier'][]
-        categories: IngredientsInterface['category'][]
-        types: IngredientsInterface['type'][]
+        units: IngredientsInterface['unitId'][]
+        suppliers: IngredientsInterface['supplierId'][]
+        categories: IngredientsInterface['categoryId'][]
+        types: IngredientsInterface['typeId'][]
       }) => {
-  const names = ingredients.map((ingredient) => ingredient.name);
-  const unit = units.map((unit) => unit.name);
+  const [rowsData,
+    setRowsData] = useState<IngredientsInterface[]>([emptyState]);
 
-  // const [gridApi, setGridApi] = useState(null);
-  const [ingredient, setIngredient] = useState<
-  IngredientsInterface>(emptyState);
-  const [data, setData] = useState<IngredientsInterface[]>([emptyState]);
-  const [price, setPrice] = useState<IngredientsInterface['price']>(0);
-
-
-  const [columnDefs] = useState([
-    {field: 'name',
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: ['', ...names],
-      },
-    },
-    {headerName: 'ingredient',
-      // field: 'name',
-      // cellEditor: IngredientEditor,
-      cellEditorPopup: true,
-      editable: true,
-
-    },
-    {field: 'quantity',
-    },
-    {field: 'unit.name',
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: ['', ...unit],
-      }},
-
-  ]);
-
-  const defaultColDef = useMemo(()=>{
-    return {
-      editable: true,
-    };
-  }, []);
-
-  const callValue = (e)=>{
-
+  const addTableRow=(e: React.FormEvent<HTMLButtonElement>)=>{
+    e.preventDefault();
+    setRowsData([...rowsData, emptyState]);
   };
-
-
-  const submitHandler = async (
-      e: React.KeyboardEventHandler<HTMLInputElement>)=>{
-    // eslint-disable-next-line require-jsdoc
-
-
-    const query = (e.currentTarget.value);
-    console.log(query);
-    if (query) {
-      try {
-        const res = await fetch(`api/ingredients/search/${query}`, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify(query),
-        });
-        const result = await res.json();
-        console.log(result);
-        setPrice(result[0].price);
-        setIngredient(result[0]);
-      } catch (e) {
-        console.error(e);
-      }
-    }
+  const deleteTableRows=(index: number)=>{
+    const rows = [...rowsData];
+    rows.splice(index, 1);
+    setRowsData(rows);
   };
 
   return (
     <form>
-      <section className={styles.section}>
-        <label htmlFor="code" className={styles.label} >
-        Code
-          <input className={styles.input} type="text" name="code" id="code" />
-        </label>
-        <label htmlFor="name" className={styles.label} >
-        Name
-          <input className={styles.input} type="text" name="name" id="name" />
-        </label>
-        <label htmlFor="type" className={styles.label} >
-        Type
-          <select
-            defaultValue={'-- select an option --'}
-          >
-            <option value="-- select an option --">
-              -- select an option --</option>
-            {types?.map((type) =>(
-              <option key={type.name}
-                defaultValue={type.name}>{type.name}</option>
-            ))}
-          </select>
-        </label>
-      </section>
-      <Button text={'Create Recipe'} />
-      <section className="ag-theme-alpine"
-        style={{height: 400, width: '100%'}}>
-        <AgGridReact
-          rowData={data}
-          columnDefs={columnDefs}
-          defaultColDef={defaultColDef}
-          // onGridReady={onGridReady}
-        >
-        </AgGridReact>
-        <IngredientRow/>
-      </section>
+      <table >
+        <thead>
+          <tr>
+            <th> Ingredient Name</th>
+            <th> Quantity</th>
+            <th> Unit</th>
+            <th> Price Per Unit</th>
+            <th> Subtotal Cost</th>
+            <th> <button onClick={addTableRow}>+</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          {rowsData.map((row, index)=>{
+            return (
+              <IngredientRow
+                key={index}
+                ingredients = {ingredients}
+                units={units}
+                deleteTableRows={deleteTableRows} />
+
+            );
+          })}
+        </tbody>
+      </table>
     </form>
   );
 };
+
 
 export default FoodCostCard;
 

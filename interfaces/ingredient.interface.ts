@@ -1,3 +1,8 @@
+import {CategoryInterface} from './category.interface';
+import {SupplierInterface} from './supplier.interface';
+import {TypeInterface} from './type.interface';
+import {UnitInterface} from './unit.interface';
+
 export interface IngredientsInterface {
     id?: number
     code: string
@@ -5,8 +10,9 @@ export interface IngredientsInterface {
     packingSize: string
     price: number
     quantity: number
-    unit:{name: string}
-    type:{name: string}
-    category: {name: string}
-    supplier: {name: string}
+    unitId: UnitInterface
+    typeId:TypeInterface
+    categoryId: CategoryInterface
+    supplierId: SupplierInterface
 };
+

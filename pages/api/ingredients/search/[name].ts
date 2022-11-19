@@ -7,7 +7,8 @@ export default async function handler(
 ) {
   const name = req.body;
   const query = await prisma.$queryRawUnsafe(`
-  SELECT * FROM "Ingredient" WHERE name ILIKE $1`, `%${name}%`);
+  SELECT * FROM "Ingredient" 
+  WHERE name ILIKE $1`, `%${name}%`);
 
   return res.json(query);
 }
