@@ -5,6 +5,7 @@ import React, {useMemo, useState} from 'react';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
 import styles from '../styles/Card.module.css';
 import Button from './Button';
+import IngredientRow from './IngredientRow';
 
 const emptyState = {
   code: '',
@@ -133,8 +134,7 @@ const FoodCostCard= (
           // onGridReady={onGridReady}
         >
         </AgGridReact>
-        {/* <RecipeIngredientsInput/> */}
-
+        <IngredientRow/>
       </section>
     </form>
   );
