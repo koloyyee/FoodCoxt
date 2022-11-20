@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 html,
 body {
   padding: 0;
@@ -13,7 +16,7 @@ a {
 
 * {
   box-sizing: border-box;
-  --primary-color: rgb(25, 45, 196);
+  --primary-color: rgba(30, 64, 175 );
   --highlight-color: rgb(223, 203, 73);
   --primary-font: rgb(68, 68, 68);
   --secondary-font: rgb(255, 255, 255);

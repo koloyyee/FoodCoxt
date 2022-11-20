@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from 'next/link';
 import {CiDatabase} from 'react-icons/ci';
+import {FiBookOpen} from 'react-icons/fi';
 import {TbTruckLoading} from 'react-icons/tb';
 import styles from '../styles/NavDrawer.module.css';
 
@@ -11,9 +12,9 @@ const NavDrawer = () => {
 
         <Link className={styles.link} href='/'>
           <CiDatabase/><span className={styles.span}>Ingredients </span></Link>
-        {/* <Link className={styles.link} href='/recipes'>
+        <Link className={styles.link} href='/recipes/create'>
           <FiBookOpen/><span className={styles.span}>
-            Recipes</span></Link> */}
+            Recipes</span></Link>
         <Link className={styles.link} href='/suppliers'>
           <TbTruckLoading/><span className={styles.span}>
             Suppliers</span></Link>

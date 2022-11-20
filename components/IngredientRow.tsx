@@ -42,9 +42,13 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
   useEffect(()=>{
     if (debounceSearchTerm) {
       searchIngredient(debounceSearchTerm).then( (results) =>{
-        const units = generateUnit(results[0].unitId);
-        setUnit(units[0].name);
-        setIngredient(results[0]);
+        if (results[0]) {
+          const units = generateUnit(results[0].unitId);
+          setUnit(units[0].name);
+          setIngredient(results[0]);
+        } else {
+          setIngredient(emptyState);
+        }
       });
     } else {
       setIngredient(emptyState);
@@ -55,6 +59,7 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
     setQuery(value);
   }
 
+  const pricePerUnit = ingredient.price / ingredient.quantity;
 
   return (
     <tr>
@@ -65,6 +70,7 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
       <td>
         <label htmlFor="quantity">
           <input
+            className='w-full border-2 rounded-sm border-sky-800 m-2 h-7'
             type="number"
             defaultValue={0}
             onChange = {(e)=> setQuantity(Number(e.target.value))}
@@ -72,14 +78,33 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
         </label>
       </td>
       <td>
-        <p>{unit}</p>
+        <input
+          className='w-full border-2  border-sky-800 m-2 h-7'
+          type="text"
+          name="unit"
+          id="unit"
+          defaultValue={unit} disabled={true}/>
       </td>
       <td>
-        <p>{ingredient.price}/{unit}</p>
+        <input
+          className='w-full border-2 border-sky-800 m-2 h-7'
+          type="text"
+          name="price-per-unit"
+          id="unit"
+          value={`$${
+            pricePerUnit ?
+            pricePerUnit.toFixed(2): 0}/${unit}`}
+          disabled={true}/>
       </td>
       <td>
-        {(ingredient.price / ingredient.quantity)* quantity ?
-    (ingredient.price / ingredient.quantity)* quantity : '' }
+        <input
+          className='w-full border-2  border-sky-800 m-2 h-7'
+          type="text"
+          name="price-per-unit"
+          id="unit"
+          value={`$${pricePerUnit ?
+            (pricePerUnit* quantity).toFixed(2):0 }`}
+          disabled={true}/>
       </td>
     </tr>
 

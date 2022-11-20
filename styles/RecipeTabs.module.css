@@ -15,7 +15,6 @@
   .tabs .tabPanel * {
     margin: 0;
     padding: 0;
-    text-align: left;
   }
   .tabs .tabPanel > * + * {
     margin-block-start: 1.5rem; 
