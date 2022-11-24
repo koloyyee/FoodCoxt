@@ -28,6 +28,7 @@ const InputComboBox = ({list, search}:
       <Combobox.Options
         className='relative z-10 border-2'
       >
+        {/* need to set setRowsData here to update the form */}
         {filtered.map((item, index)=>(
           <Combobox.Option
             key={item}

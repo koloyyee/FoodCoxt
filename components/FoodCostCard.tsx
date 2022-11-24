@@ -18,6 +18,10 @@ export const emptyState = {
 
 };
 
+function submitForm(e: React.FormEvent ) {
+  e.preventDefault();
+}
+
 const FoodCostCard= (
     {ingredients, units, suppliers, categories, types}:{
         ingredients: IngredientsInterface[]
@@ -65,6 +69,7 @@ const FoodCostCard= (
           })}
         </tbody>
       </table>
+      <button type="submit" onClick={submitForm}> New Recipe</button>
     </form>
   );
 };

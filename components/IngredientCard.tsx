@@ -26,10 +26,10 @@ function PricePerUnit({price, quantity}:{
 const IngredientCard = (
     {ingredient, units, suppliers, categories, types, isNew} :
     {ingredient:IngredientsInterface,
-      units:IngredientsInterface['unit'][],
-      suppliers:IngredientsInterface['supplier'][]
-      categories:IngredientsInterface['category'][]
-      types:IngredientsInterface['type'][]
+      units:IngredientsInterface['unitId'][],
+      suppliers:IngredientsInterface['supplierId'][]
+      categories:IngredientsInterface['categoryId'][]
+      types:IngredientsInterface['typeId'][]
       isNew: boolean // is this a new ingredient?
     },
 ) => {
@@ -125,7 +125,8 @@ const IngredientCard = (
             className={styles.input}
             name="category"
             id='category'
-            defaultValue={isNew ? '-- select an option --' : data.category.name}
+            defaultValue={isNew ?
+              '-- select an option --' : data.categoryId.name}
             onChange={(e)=> setData(
                 {...data,
                   [e.target.name]: e.target.value},
@@ -180,7 +181,7 @@ const IngredientCard = (
             className={styles.input}
             name="unit"
             id="unit"
-            defaultValue={isNew ? '-- select an option --' : data.unit.name}
+            defaultValue={isNew ? '-- select an option --' : data.unitId.name}
             onChange={(e)=> setData(
                 {...data,
                   [e.target.name]: e.target.value},
@@ -227,7 +228,8 @@ const IngredientCard = (
             className={styles.input}
             name="supplier"
             id="supplier"
-            defaultValue={isNew ? '-- select an option --' : data.supplier.name}
+            defaultValue={isNew ?
+              '-- select an option --' : data.supplierId.name}
             onChange={(e)=> setData(
                 {...data,
                   [e.target.name]: e.target.value},
@@ -249,7 +251,7 @@ const IngredientCard = (
             className={styles.input}
             name="type"
             id="type"
-            defaultValue={isNew ? '-- select an option --' : data.type.name}
+            defaultValue={isNew ? '-- select an option --' : data.typeId.name}
             onChange={(e)=> setData(
                 {...data,
                   [e.target.name]: e.target.value},

@@ -61,7 +61,7 @@ const Home:NextPage<{ingredients: IngredientsInterface[]}> = (
           >
           </AgGridReact>
         </div>
-        <AddButton destination='/ingredients/create'/>
+        <AddButton destination='/create'/>
       </div>
     </div>
   );
