@@ -4,7 +4,7 @@ import {AgGridReact} from 'ag-grid-react';
 import {GetStaticProps, NextPage} from 'next';
 import Link from 'next/link';
 import React, {useState} from 'react';
-import AddButton from '../components/AddButton';
+import AddButton from '../components/Buttons/AddButton';
 import NavDrawer from '../components/NavDrawer';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
 import prisma from '../lib/prisma';

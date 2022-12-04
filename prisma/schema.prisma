@@ -35,9 +35,10 @@ model Type {
 }
 
 model Unit {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique @db.VarChar(255)
-  ingredient Ingredient[]
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique @db.VarChar(255)
+  ingredient         Ingredient[]
+  ingredientOnRecipe IngredientOnRecipe[]
 }
 
 model Category {
@@ -57,26 +58,28 @@ model Supplier {
 model IngredientOnRecipe {
   ingredientId Int
   recipeId     Int
+  unitId       Int
   quantity     Float
+  unit         Unit       @relation(fields: [unitId], references: [id])
   ingrdient    Ingredient @relation(fields: [ingredientId], references: [id])
   recipe       Recipe     @relation(fields: [recipeId], references: [id])
 
-  @@id([ingredientId, recipeId])
+  @@id([unitId, ingredientId, recipeId])
 }
 
 model Recipe {
-  id              Int                  @id @default(autoincrement())
-  method          String
-  totalInput      Float
-  totalOutput     Float
-  yield           Float
-  servingsNumber  Int
-  servingQuantity Int
-  pricePerUnit    Float
-  pricePerServing Float
-  name            String
-  totalCost       Float
-  typeId          Int
-  type            Type                 @relation(fields: [typeId], references: [id])
-  ingredient      IngredientOnRecipe[]
+  id                 Int                  @id @default(autoincrement())
+  method             String
+  totalInput         Float
+  totalOutput        Float
+  yield              Float
+  servingsNumber     Int
+  servingQuantity    Int
+  pricePerUnit       Float
+  pricePerServing    Float
+  name               String
+  totalCost          Float
+  typeId             Int
+  type               Type                 @relation(fields: [typeId], references: [id])
+  ingredientOnRecipe IngredientOnRecipe[]
 }

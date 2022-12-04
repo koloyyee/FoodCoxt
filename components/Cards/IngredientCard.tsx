@@ -1,8 +1,8 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
-import {IngredientsInterface} from '../interfaces/ingredient.interface';
-import {default as styles} from '../styles/Card.module.css';
-import Button from './Button';
+import {IIngredients} from '../../interfaces/ingredient.interface';
+import {default as styles} from '../../styles/Card.module.css';
+import Button from '../Buttons/Button';
 
 /**
  *
@@ -25,15 +25,15 @@ function PricePerUnit({price, quantity}:{
 
 const IngredientCard = (
     {ingredient, units, suppliers, categories, types, isNew} :
-    {ingredient:IngredientsInterface,
-      units:IngredientsInterface['unitId'][],
-      suppliers:IngredientsInterface['supplierId'][]
-      categories:IngredientsInterface['categoryId'][]
-      types:IngredientsInterface['typeId'][]
+    {ingredient:IIngredients,
+      units:IIngredients['unitId'][],
+      suppliers:IIngredients['supplierId'][]
+      categories:IIngredients['categoryId'][]
+      types:IIngredients['typeId'][]
       isNew: boolean // is this a new ingredient?
     },
 ) => {
-  const [data, setData] = useState<IngredientsInterface>({...ingredient});
+  const [data, setData] = useState<IIngredients>({...ingredient});
 
   const [inputDisable, setInputDisable] = useState(true);
 
@@ -88,7 +88,9 @@ const IngredientCard = (
   return (
     <article className='section'>
       {isNew? <h1>Add New Ingredient</h1> : <h1>Update Ingredient</h1>}
-      <form className={styles.card}>
+      <form className='
+      w-2/3 shadow-lg rounded m-auto
+      grid grid-cols-3'>
         <label htmlFor="code" className={styles.label}>
         Code
           <input

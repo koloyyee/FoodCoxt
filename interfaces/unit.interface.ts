@@ -1,4 +1,4 @@
-export interface UnitInterface {
+export interface IUnit{
     id?: number
     name: string
 }

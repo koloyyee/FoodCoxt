@@ -1,9 +1,9 @@
-import {GlobalFilterInterface} from '../interfaces/filter.interface';
-import DebounceInput from './DebounceInput';
+import {IGlobalFilter} from '../interfaces/filter.interface';
+import DebounceInput from './Inputs/DebounceInput';
 const GlobalFilter = ({
   value,
   onChange,
-}:GlobalFilterInterface) => {
+}:IGlobalFilter) => {
   return (
     <DebounceInput
       extraClass='global'

@@ -1,18 +1,18 @@
-import {CategoryInterface} from './category.interface';
-import {SupplierInterface} from './supplier.interface';
-import {TypeInterface} from './type.interface';
-import {UnitInterface} from './unit.interface';
+import {ICategory} from './category.interface';
+import {ISupplier} from './supplier.interface';
+import {IType} from './type.interface';
+import {IUnit} from './unit.interface';
 
-export interface IngredientsInterface {
+export interface IIngredients{
     id?: number
     code: string
     name: string
     packingSize: string
     price: number
     quantity: number
-    unitId: UnitInterface
-    typeId:TypeInterface
-    categoryId: CategoryInterface
-    supplierId: SupplierInterface
+    unitId: IUnit
+    typeId:IType
+    categoryId: ICategory
+    supplierId: ISupplier
 };
 

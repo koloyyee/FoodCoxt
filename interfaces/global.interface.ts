@@ -1,7 +1,7 @@
 import {Column, Table} from '@tanstack/react-table';
 import React, {FormEventHandler} from 'react';
 
-export interface DebounceInputInterface {
+export interface IDebounceInput {
     type?: React.HTMLInputTypeAttribute
     placeholder? :string
     list?: string
@@ -10,13 +10,13 @@ export interface DebounceInputInterface {
     debounce?: number
     extraClass?: string
 }
-export interface TableFilterInterface {
+export interface ITableFilter {
 
     column: Column<any, unknown>
     table: Table<any>
 }
 
-export interface ButtonInterface {
+export interface IButton {
     onClick?: React.MouseEventHandler<HTMLButtonElement>
     text: string | JSX.Element
     onSubmit?: FormEventHandler<HTMLButtonElement>

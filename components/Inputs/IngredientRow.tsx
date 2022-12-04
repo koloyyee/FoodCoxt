@@ -1,23 +1,40 @@
 /* eslint-disable require-jsdoc */
-import {useEffect, useState} from 'react';
-import {IngredientsInterface} from '../interfaces/ingredient.interface';
-import useDebounce from '../useHooks/useDebounce';
-import {emptyState} from './FoodCostCard';
+import React, {useEffect, useState} from 'react';
+import {IIngredients} from '../../interfaces/ingredient.interface';
+import useDebounce from '../../useHooks/useDebounce';
+import {emptyIngredient} from '../../utils/emptyStates';
 import InputComboBox from './InputComboBox';
 
 
-const IngredientRow = ({ingredients, deleteTableRows, units}:
-  { ingredients: IngredientsInterface[],
-    units: IngredientsInterface['unitId'][],
+const IngredientRow = ({
+  ingredients,
+  deleteTableRows,
+  units,
+  setRowsData,
+  ingredientRow,
+  index,
+}:
+  { ingredients: IIngredients[],
+    units: IIngredients['unitId'][],
     deleteTableRows: (index: number) => void,
+    setRowsData: (value: React.SetStateAction<{
+      ingredientId: number;
+      quantity: number;
+      unitId: number;
+  }[]>) => void,
+    ingredientRow: [{ ingredientId: number, unitId: number, quantity:number}],
+    index:number
 }) => {
   const [query, setQuery] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [unit, setUnit] = useState('');
+  const [unitId, setUnitId] = useState(0);
+  const [ingredientId, setIngredientId] = useState(0);
 
   const ingredientsName = ingredients.map((ingredient) => ingredient.name);
-  const [ingredient, setIngredient] = useState(emptyState);
+  const [ingredient, setIngredient] = useState(emptyIngredient);
   const debounceSearchTerm = useDebounce(query, 500);
+
 
   // eslint-disable-next-line require-jsdoc
   async function searchIngredient(query : string) {
@@ -35,8 +52,8 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
     return;
   }
 
-  function generateUnit(ingredientId: number) {
-    return units.filter((unit)=> unit.id == ingredientId);
+  function generateUnit(unitId: number) {
+    return units.filter((unit)=> unit.id == unitId);
   }
 
   useEffect(()=>{
@@ -44,50 +61,75 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
       searchIngredient(debounceSearchTerm).then( (results) =>{
         if (results[0]) {
           const units = generateUnit(results[0].unitId);
+
           setUnit(units[0].name);
+          setUnitId(units[0].id!);
           setIngredient(results[0]);
+          setIngredientId(results[0].id);
         } else {
-          setIngredient(emptyState);
+          setIngredient(emptyIngredient);
         }
       });
     } else {
-      setIngredient(emptyState);
+      setIngredient(emptyIngredient);
     }
   }, [debounceSearchTerm]);
 
-  function onChange(value: string) {
+  function comboBoxSearch(value: string) {
     setQuery(value);
   }
 
   const pricePerUnit = ingredient.price / ingredient.quantity;
 
+  function quantityHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    setTimeout(()=>{
+      setQuantity(parseInt(e.target.value));
+    }, 500);
+  }
+  function updateRow() {
+    setRowsData((prev)=> {
+      prev[index] ={
+        ingredientId: ingredientId,
+        quantity: quantity,
+        unitId: unitId,
+      };
+      console.log(prev);
+
+      return prev;
+    });
+  }
+  useEffect(()=>{
+    return updateRow();
+  }, [quantity]);
+
   return (
-    <tr>
+    <tr className='border-b'>
       <td>
         <InputComboBox
-          list ={ingredientsName} search ={onChange} />
+          list ={ingredientsName} search ={comboBoxSearch} />
       </td>
       <td>
         <label htmlFor="quantity">
           <input
-            className='w-full border-2 rounded-sm border-sky-800 m-2 h-7'
+            className='w-full m-2 h-7 '
             type="number"
             defaultValue={0}
-            onChange = {(e)=> setQuantity(Number(e.target.value))}
+            onChange = {quantityHandler}
           />
         </label>
       </td>
       <td>
         <input
-          className='w-full border-2  border-sky-800 m-2 h-7'
+          className='w-full  m-2 h-7'
           type="text"
           name="unit"
           id="unit"
-          defaultValue={unit} disabled={true}/>
+          defaultValue={unit} disabled={true}
+        />
       </td>
       <td>
         <input
-          className='w-full border-2 border-sky-800 m-2 h-7'
+          className='w-full m-2 h-7'
           type="text"
           name="price-per-unit"
           id="unit"
@@ -98,7 +140,7 @@ const IngredientRow = ({ingredients, deleteTableRows, units}:
       </td>
       <td>
         <input
-          className='w-full border-2  border-sky-800 m-2 h-7'
+          className='w-full m-2 h-7'
           type="text"
           name="price-per-unit"
           id="unit"

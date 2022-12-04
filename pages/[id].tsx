@@ -1,5 +1,5 @@
 import {GetServerSideProps} from 'next';
-import IngredientCard from '../components/IngredientCard';
+import IngredientCard from '../components/Cards/IngredientCard';
 import {IngredientsInterface} from '../interfaces/ingredient.interface';
 import prisma from '../lib/prisma';
 

@@ -1,16 +1,16 @@
 import {GetStaticProps} from 'next';
-import FoodCostCard from '../../components/FoodCostCard';
+import FoodCostCard from '../../components/Cards/FoodCostCard';
 import NavDrawer from '../../components/NavDrawer';
-import {IngredientsInterface} from '../../interfaces/ingredient.interface';
+import {IIngredients} from '../../interfaces/ingredient.interface';
 import prisma from '../../lib/prisma';
 import styles from '../../styles/RecipeTabs.module.css';
 
 const Recipes = ({ingredients, units, suppliers, categories, types}:{
-  ingredients : IngredientsInterface[]
-  units: IngredientsInterface['unitId'][]
-  suppliers: IngredientsInterface['supplierId'][]
-  categories: IngredientsInterface['categoryId'][]
-  types: IngredientsInterface['typeId'][]
+  ingredients : IIngredients[]
+  units: IIngredients['unitId'][]
+  suppliers: IIngredients['supplierId'][]
+  categories: IIngredients['categoryId'][]
+  types: IIngredients['typeId'][]
 }) => {
   return (
     <div className='main'>

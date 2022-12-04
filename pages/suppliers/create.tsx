@@ -1,5 +1,5 @@
+import SupplierCard from '../../components/Cards/SupplierCard';
 import NavDrawer from '../../components/NavDrawer';
-import SupplierCard from '../../components/SupplierCard';
 
 const emptyState = {
   id: '',

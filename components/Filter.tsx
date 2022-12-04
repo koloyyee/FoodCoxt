@@ -1,10 +1,10 @@
 import React from 'react';
-import {TableFilterInterface} from '../interfaces/global.interface';
+import {ITableFilter} from '../interfaces/global.interface';
 import styles from '../styles/Input.module.css';
-import DebounceInput from './DebounceInput';
+import DebounceInput from './Inputs/DebounceInput';
 
-const Filter:React.FC<TableFilterInterface> =
-({column, table}: TableFilterInterface) => {
+const Filter:React.FC<ITableFilter> =
+({column, table}: ITableFilter) => {
   const firstValue = table
       .getPreFilteredRowModel()
       .flatRows[0]?.getValue(column.id);

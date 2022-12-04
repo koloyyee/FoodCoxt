@@ -1,6 +1,6 @@
 import {GetServerSideProps} from 'next';
+import SupplierCard from '../../components/Cards/SupplierCard';
 import NavDrawer from '../../components/NavDrawer';
-import SupplierCard from '../../components/SupplierCard';
 import {SupplierInterface} from '../../interfaces/supplier.interface';
 import prisma from '../../lib/prisma';
 

@@ -3,7 +3,8 @@ import React, {useState} from 'react';
 
 const InputComboBox = ({list, search}:
   {list: string[],
-    search:(value: string)=>void}) => {
+    search:(value: string)=>void},
+) => {
   const [selected, setSelected] = useState('');
   const [query, setQuery] = useState('');
   const filtered = query === ''? [] : list.filter((item)=>{
@@ -22,7 +23,7 @@ const InputComboBox = ({list, search}:
       value={selected}
       onChange={setSelected}>
       <Combobox.Input onChange={inputOnChange}
-        className="border-2 border-sky-800 focus:ring-0 z-10
+        className=" focus:ring-0 z-10
         "
       />
       <Combobox.Options

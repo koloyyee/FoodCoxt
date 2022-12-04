@@ -1,4 +1,4 @@
-export interface SupplierInterface {
+export interface ISupplier{
     id?: number
     name: string
     email : string

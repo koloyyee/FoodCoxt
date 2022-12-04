@@ -1,18 +1,18 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
-import {SupplierInterface} from '../interfaces/supplier.interface';
+import {ISupplier} from '../../interfaces/supplier.interface';
+import Button from '../Buttons/Button';
 import {default as styles} from '../styles/Card.module.css';
-import Button from './Button';
 
 
 const SupplierCard = (
     {supplier, isNew} :
-    {supplier: SupplierInterface,
+    {supplier: ISupplier,
 
       isNew: boolean // is this a new ingredient?
     },
 ) => {
-  const [data, setData] = useState<SupplierInterface>({...supplier});
+  const [data, setData] = useState<ISupplier>({...supplier});
 
   const [inputDisable, setInputDisable] = useState(true);
 
